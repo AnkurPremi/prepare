@@ -3,8 +3,8 @@ package strings;
 //https://leetcode.com/problems/long-pressed-name/
 public class LongPressedName {
     public static void main(String[] args) {
-        String name = "kikcxmvzi";
-        String typed = "kiikcxxmmvvzz";
+        String name = "alex";
+        String typed = "aaaleeexxxxxxxxxxxxx";
         System.out.println(new LongPressedName().isLongPressedName2(name, typed));
 
     }
@@ -63,8 +63,8 @@ public class LongPressedName {
                 j++;
             }
         }
-        if (j < typed.length()) {
-            if (typed.charAt(j) != name.charAt(i)) {
+        while (j < typed.length()) {
+            if (typed.charAt(j) != name.charAt(i-1)) {
                 return false;
             }
             j++;
@@ -80,3 +80,5 @@ public class LongPressedName {
         return map;
     }
 }
+
+
