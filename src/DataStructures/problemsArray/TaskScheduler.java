@@ -3,7 +3,7 @@ package DataStructures.problemsArray;
 //https://leetcode.com/problems/task-scheduler/
 public class TaskScheduler {
     public static void main(String[] args) {
-        char[] arr = {'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+        char[] arr = {'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'C', 'C', 'C', 'C', 'D', 'D', 'D', 'D', 'E', 'F', 'G'};
         int n = 3;
         System.out.println(new TaskScheduler().leastInterval1(arr, 2));
     }

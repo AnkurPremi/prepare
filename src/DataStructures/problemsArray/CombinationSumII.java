@@ -7,8 +7,8 @@ import java.util.List;
 //https://leetcode.com/problems/combination-sum-ii/
 public class CombinationSumII {
     public static void main(String[] args) {
-        int[] nums = {10,1,2,7,6,1,5};
-        int target = 8;
+        int[] nums = {10,1,2,10,6,1,5};
+        int target = 13;
         System.out.println(new CombinationSumII().combinationSum2(nums, target));
     }
 

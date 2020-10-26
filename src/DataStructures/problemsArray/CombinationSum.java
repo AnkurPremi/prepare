@@ -5,8 +5,8 @@ import java.util.List;
 //https://leetcode.com/problems/combination-sum/submissions/
 public class CombinationSum {
     public static void main(String[] args) {
-        int[] nums = {2,3,6,7};
-        int target = 7;
+        int[] nums = {1,2,3,4,5,6,7,8,9};
+        int target = 100000000;
         System.out.println(new CombinationSum().combinationSum(nums, target));
     }
 
@@ -18,7 +18,10 @@ public class CombinationSum {
 
     public void helper(int[] candidates, int target, int start, List<List<Integer>> result, List<Integer> tempList) {
         if (target < 0) return;
-        if (target == 0) result.add(new ArrayList<>(tempList));
+        if (target == 0) {
+            result.add(new ArrayList<>(tempList));
+            return;
+        }
         for (int i = start; i < candidates.length; i++) {
             tempList.add(candidates[i]);
             helper(candidates, target - candidates[i], i, result, tempList);

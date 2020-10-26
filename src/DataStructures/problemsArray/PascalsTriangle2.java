@@ -22,7 +22,8 @@ public class PascalsTriangle2 {
                 int start = 0, end = 1, j = 1, preStart = arr[start];
                 for (; j < i; j++) {
                     int prevEnd = arr[end];
-                    arr[j] = preStart + arr[end++];
+                    arr[j] = preStart + arr[end];
+                    end++;
                     preStart = prevEnd;
                 }
                 arr[0] = 1;

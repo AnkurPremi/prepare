@@ -8,7 +8,9 @@ import java.util.Map;
 //https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 public class BTreeFromPostAndInOrder {
     public static void main(String[] args) {
-
+        int[] in = {9,3,15,20,7};
+        int[] po = {9,15,7,20,3};
+        new BTreeFromPostAndInOrder().buildTree(in, po);
     }
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {

@@ -6,7 +6,7 @@ import java.util.Map;
 //https://leetcode.com/problems/make-the-string-great/
 public class MakeTheStringGreat {
     public static void main(String[] args) {
-        String s = "abBAcCdddddD";
+        String s = "Aa";
         System.out.println(new MakeTheStringGreat().makeGood(s));
     }
 
@@ -16,7 +16,7 @@ public class MakeTheStringGreat {
         char[] arr = s.toCharArray();
         int i = 0;
         for (char c : arr) {
-            if (i > 0 && (arr[i - 1] - 'a' == c - 'A')) {
+            if (i > 0 && (Math.abs(arr[i - 1] - c) == 32)) {
                 i--;
             } else {
                 arr[i] = c;

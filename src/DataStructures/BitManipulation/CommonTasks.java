@@ -10,11 +10,11 @@ public class CommonTasks {
 //      ~a  = 1100 0011
 
     public static void main(String[] args) {
-//        if(getBit(127, 4)){
-//            System.out.println("4th digit is 1");
-//        }else{
-//            System.out.println("4th digit is 0");
-//        }
+        if(getBit(127, 1)){
+            System.out.println("4th digit is 1");
+        }else{
+            System.out.println("4th digit is 0");
+        }
 //        System.out.println("-----------------------------------");
 //        System.out.println(Integer.toBinaryString(setBit(127, 4)));
         System.out.println(Integer.toBinaryString(clearBit(127, 4)));
@@ -22,9 +22,9 @@ public class CommonTasks {
 
     //0th index based
     public static boolean getBit(int num, int i){
+        System.out.println(Integer.toBinaryString(num));
         System.out.println(Integer.toBinaryString(i));
         System.out.println(Integer.toBinaryString(1 << i));
-        System.out.println(Integer.toBinaryString(num));
         return ((num & (1 << i)) !=0 );
     }
 

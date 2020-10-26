@@ -6,7 +6,9 @@ import java.util.Map;
 //https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 public class BTreeFromPreAndInOrder {
     public static void main(String[] args) {
-
+        int[] pre = {3,9,20,15,7};
+        int[] ino = {9,3,15,20,7};
+        new BTreeFromPreAndInOrder().buildTree1(pre, ino);
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -36,6 +38,36 @@ public class BTreeFromPreAndInOrder {
         node.left = helper(preorder, map, preIdx, start, idx-1);
         //create the right tree
         node.right = helper(preorder, map, preIdx, idx+1, end);
+        return node;
+    }
+
+
+    int idx = 0;
+    public TreeNode buildTree1(int[] preorder, int[] inorder) {
+        int n = preorder.length;
+        if(n == 0) return null;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0 ; i<n ; i++){
+            map.put(inorder[i], i);
+        }
+        return helper(preorder, 0, n-1, map);
+    }
+
+    public TreeNode helper(int[] preorder, int start, int end, Map<Integer, Integer> map) {
+        if(start > end) return null;
+
+        TreeNode node = new TreeNode(preorder[idx++]);
+        if(start == end) return node;
+
+        //find the index of the element in the hashmap
+        //which will be used to divide the tree into left and right
+        //using inorder traversal
+        int inIdx = map.getOrDefault(node.val, -1);
+        if(inIdx == -1) return null;
+
+        node.left = helper(preorder, start, inIdx-1, map);
+        node.right = helper(preorder, inIdx+1, end, map);
+
         return node;
     }
 

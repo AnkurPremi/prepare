@@ -2,8 +2,8 @@ package DataStructures.problemsArray;
 
 public class MaxChunksToMakeSorted {
     public static void main(String[] args) {
-        int[] arr = {4,0,0,2,4};
-        System.out.println(new MaxChunksToMakeSorted().maxChunksToSorted(arr));
+        int[] arr = {0,2,1,5,7,3,4,6};
+        System.out.println(new MaxChunksToMakeSorted().maxChunksToSorted2(arr));
     }
 
     public int maxChunksToSorted1(int[] nums) {
@@ -72,5 +72,29 @@ public class MaxChunksToMakeSorted {
         }
 
         return result + 1;
+    }
+
+
+    public int maxChunksToSorted2(int[] arr) {
+        int count = 1;
+        boolean findSmaller = false;
+        int num = -1;
+        for(int i=0 ; i<arr.length ; i++){
+            if(arr[i] == i) count++;
+            else{
+                if(!findSmaller){
+                    num = arr[i];
+                    findSmaller = true;
+                }else{
+                    if(arr[i] > num) {
+                        count++;
+                        num = arr[i];
+                    }
+                }
+
+            }
+        }
+
+        return count;
     }
 }

@@ -1,8 +1,16 @@
 package DataStructures.HashTable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MinBaloons {
     public static void main(String[] args) {
+        String s = "dadsad";
+        s.split("/n");
         System.out.println(new MinBaloons().maxNumberOfBalloons("nlaebolko"));
+        List<Integer>[] array = new ArrayList[10];
     }
 
     public int maxNumberOfBalloons(String text) {

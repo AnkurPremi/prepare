@@ -1,9 +1,13 @@
 package DataStructures.HashTable;
 
+import org.w3c.dom.css.CSSCharsetRule;
+
 import java.util.*;
 
 public class SortCharsByFrq {
     public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        Set<String> set = new HashSet<>(list);
         System.out.println(new SortCharsByFrq().frequencySort("Aabb"));
     }
 
