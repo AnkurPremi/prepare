@@ -17,7 +17,7 @@ public class PhoneNumberStrings {
 
     static String[] arr = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     public static void main(String[] args) {
-        System.out.println(letterCombinations("239"));
+        System.out.println(letterCombinations("2385985879"));
     }
 
     public static List<String> letterCombinations(String digits) {
@@ -31,7 +31,7 @@ public class PhoneNumberStrings {
             stringList.add(letterCombinationString);
             return;
         }
-        if(digits[idx]-'2' <= -1) return;
+
         String a = arr[digits[idx]-'2'];
         for(char c : a.toCharArray()){
             helper(digits, stringList, letterCombinationString + String.valueOf(c), idx+1);

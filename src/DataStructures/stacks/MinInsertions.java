@@ -7,6 +7,7 @@ import java.util.Stack;
 public class MinInsertions {
     public static void main(String[] args) {
         String p ="1,3,4,5";
+        System.out.println(-1/2);
         LinkedList linkedList = new LinkedList(Arrays.asList(p.split(",")));
         String s = "))(()))";
         String s1 = "((((((";

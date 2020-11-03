@@ -13,11 +13,55 @@ import java.util.Map;
  */
 public class MinWindowSubstring {
     public static void main(String[] args) {
-        String S = "ADOBECODEBANC", T = "ABC";
-        minWindow(S, T);
+        String S = "a", T = "a";
+        System.out.println(new MinWindowSubstring().minWindow(S, T));
     }
 
-    public static String minWindow(String s, String t) {
+    public String minWindow(String s, String t) {
+        int[] map = new int[128];
+
+        for (int i = 0; i < t.length(); i++) {
+            map[t.charAt(i)]++;
+        }
+
+        int[] lookup = map.clone();
+
+        int l = 0, r = 0, minL = s.length() + 1;
+        int count = 0;
+        int start = 0, end = 0;
+        while (r < s.length()) {
+            if (lookup[s.charAt(r)] > 0) {
+                if (map[s.charAt(r)]-- > 0) {
+                    count++;
+                }
+            }
+
+            if (count == t.length()) {
+                if (minL > r - l + 1) {
+                    minL = r - l + 1;
+                    start = l;
+                    end = r;
+                }
+                while (l < s.length() && count == t.length()) {
+                    if (lookup[s.charAt(l)] > 0) {
+                        if (map[s.charAt(l)]++ == 0) {
+                            if (minL > r - l + 1) {
+                                minL = r - l + 1;
+                                start = l;
+                                end = r;
+                            }
+                            count--;
+                        }
+                    }
+                    l++;
+                }
+            }
+            r++;
+        }
+        return s.substring(start, end + 1);
+    }
+    
+    public static String minWindow1(String s, String t) {
         if (s == null || t == null || s.isEmpty() || t.isEmpty()) return "";
         if (t.length() > s.length()) return "";
         if (t.equals(s)) return t;
@@ -40,21 +84,22 @@ public class MinWindowSubstring {
                 Map.Entry<Character, Integer> entry = map.entrySet().iterator().next();
                 int val = minLength;
                 minLength = Math.min(minLength, i - entry.getValue());
-                if(minLength < val){
+                if (minLength < val) {
                     max = i;
                 }
             }
         }
-        if(len == t.length()){
-            result = s.substring(map.entrySet().iterator().next().getValue(), max+1);
+        if (len == t.length()) {
+            result = s.substring(map.entrySet().iterator().next().getValue(), max + 1);
         }
         return result;
     }
 
-    private static class Helper{
+    private static class Helper {
         public int minVal;
         public int index;
-        public Helper(int val, int idx){
+
+        public Helper(int val, int idx) {
             minVal = val;
             index = idx;
         }

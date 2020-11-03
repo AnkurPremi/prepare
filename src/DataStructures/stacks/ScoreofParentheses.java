@@ -1,14 +1,11 @@
 package DataStructures.stacks;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.Stack;
+import DataStructures.NewWork.LCStrings.StringCanBreak;
 
 public class ScoreofParentheses {
     public static void main(String[] args) {
-        String s = "(()(()))";
+        String s = "()";
         System.out.println(new ScoreofParentheses().scoreOfParentheses(s));
-        LinkedList<Integer> st = new LinkedList<Integer>();
     }
 
     public int scoreOfParentheses(String S) {
