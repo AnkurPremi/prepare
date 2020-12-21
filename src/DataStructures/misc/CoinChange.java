@@ -8,7 +8,7 @@ public class CoinChange {
     public static void main(String[] args) {
         int[] arr = {186, 419, 83, 408};
         int val = 6249;
-        System.out.println(new CoinChange().coinChangeDP(arr, val));
+        System.out.println(new CoinChange().coinChange12(arr, val));
     }
 
     public int coinChange(int[] coins, int amount) {
@@ -55,5 +55,17 @@ public class CoinChange {
             return val;
         }
         return -1;
+    }
+
+    public int coinChange12(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for(int j = 0; j < coins.length; j++){
+            for(int i = coins[j]; i <= amount; i++){
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 }

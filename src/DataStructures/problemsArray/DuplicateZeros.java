@@ -5,6 +5,7 @@ public class DuplicateZeros {
     public static void main(String[] args) {
         int[] nums = {8,4,5,0,0,0,0,7};
         new DuplicateZeros().duplicateZeros(nums);
+        System.out.println("adasd");
     }
 
     public void duplicateZeros(int[] arr) {

@@ -21,6 +21,7 @@ public class LowestCommonAncestor {
 
     public static TreeNode getLCA(TreeNode root, int data1, int data2) {
         if (root == null) return null;
+
         if (!found) {
             if (root.val == data1 || root.val == data2)
                 return root;

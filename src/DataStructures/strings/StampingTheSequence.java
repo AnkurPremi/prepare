@@ -2,11 +2,18 @@ package DataStructures.strings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 //https://leetcode.com/problems/stamping-the-sequence/
 //https://leetcode.com/problems/stamping-the-sequence/discuss/201546/12ms-Java-Solution-Beats-100
 public class StampingTheSequence {
     public static void main(String[] args) {
+
+        final Random random = new Random();
+        for(int ind = 1; ind < 10; ind++) {
+            final int r = random.nextInt(ind + 1);
+            System.out.println("adsad");
+        }
         String stamp = "abc";
         String target = "ababcaaabc";
         int[] result = new StampingTheSequence().movesToStamp(stamp, target);

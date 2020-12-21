@@ -3,6 +3,7 @@ package DataStructures.LCTrees;
 import DataStructures.Trees.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -18,6 +19,25 @@ public class BTPostOrderIterative {
         node.right.right = new TreeNode(14);
         node.right.right.left = new TreeNode(13);
         System.out.println(new BTPostOrderIterative().postorderTraversal(node));
+    }
+
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        LinkedList<Integer> ans = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) return ans;
+
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            ans.addFirst(cur.val);
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+        }
+        return ans;
     }
 
     public List<Integer> postorderTraversal(TreeNode root) {

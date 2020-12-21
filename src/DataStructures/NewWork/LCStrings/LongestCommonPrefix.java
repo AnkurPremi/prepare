@@ -1,5 +1,8 @@
 package DataStructures.NewWork.LCStrings;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LongestCommonPrefix {
     public static void main(String[] args) {
         String[] words = {"dog","racecar","car"};

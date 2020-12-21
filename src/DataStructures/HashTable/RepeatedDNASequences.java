@@ -8,11 +8,13 @@ import java.util.Set;
 
 public class RepeatedDNASequences {
     public static void main(String[] args) {
+        new RepeatedDNASequences().andNum();
+        int num = new RepeatedDNASequences().createMask(20);
         String s = "11111111111111111111";
 //        int n = Integer.parseInt("0xfffff",16);
 //        System.out.print(Integer.toBinaryString(n));
 //        System.out.println("");
-        String a = "TGGTTTTTGTAAAAACCCCCGAAAACCCCCCAAAAAGGGTTT";
+        String a = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
         System.out.println(new RepeatedDNASequences().findRepeatedDnaSequences(a));
     }
 
@@ -40,7 +42,7 @@ public class RepeatedDNASequences {
             value <<= 2;
             value |= map[s.charAt(i) - 'A'];
             System.out.println(Integer.toBinaryString(value));
-            value &= 0xfffff;//1048575
+            value &= 1048575;//1048575, 0xfffff
             System.out.println(Integer.toBinaryString(value));
             if (i < 9) {
                 continue;
@@ -50,5 +52,21 @@ public class RepeatedDNASequences {
             }
         }
         return result;
+    }
+
+    public int createMask(int count){
+        int val = 0;
+        for(int i=0 ; i<count ; i++){
+            val = (val << 1) | 1;
+        }
+        return val;
+    }
+
+    public void andNum(){
+        int num = 1;
+        for(int i=1; i < 2048 ; i++){
+            num &= i;
+            System.out.println(num);
+        }
     }
 }

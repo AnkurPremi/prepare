@@ -1,5 +1,8 @@
 package DataStructures.NewWork.LCArray;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SearchInRotatedSortedArray {
     public static void main(String[] args) {
         int[] arr = {3,1};
@@ -33,6 +36,8 @@ public class SearchInRotatedSortedArray {
 
             }
         }
+        Map<String, String> map = new HashMap<>();
+
         return -1;
     }
 }

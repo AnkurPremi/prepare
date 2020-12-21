@@ -5,7 +5,7 @@ public class KMPStringAlgo {
     public static void main(String[] args) {
         String text = "abcdxaaabaabaaabcbdyx";
         String pattern = "aabaabaaa";
-        pattern = "aacaaea";
+        pattern = "aa";
         checkIfPatternExist(text, pattern);
     }
 
