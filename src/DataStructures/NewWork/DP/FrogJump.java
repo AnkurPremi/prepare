@@ -37,7 +37,7 @@ public class FrogJump {
         }
 
         if (!cache.containsKey(idx)) {
-            cache.put(idx, new HashMap<Integer, Boolean>());
+            cache.put(idx, new HashMap());
         }
         cache.get(idx).put(jump, canReachEnd);
         return canReachEnd;

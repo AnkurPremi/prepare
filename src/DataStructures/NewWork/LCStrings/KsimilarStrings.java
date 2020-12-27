@@ -6,47 +6,40 @@ import java.util.TreeSet;
 
 public class KsimilarStrings {
     public static void main(String[] args) {
-        String A = "abcbca";
-        String B = "ababcc";
+        String A = "aabc";
+        String B = "abca";
         System.out.println(new KsimilarStrings().kSimilarity(A, B));
     }
 
     public int kSimilarity(String A, String B) {
-        if (A.equals(B)) return 0;
 
-        Map<Character, TreeSet<Integer>> map = new HashMap();
-        for (int i = 0; i < B.length(); i++) {
-            char c = B.charAt(i);
-            if (!map.containsKey(c)) {
-                map.put(c, new TreeSet<Integer>());
-            }
-            map.get(c).add(i);
+        return backtrack(A.toCharArray(), B.toCharArray(), 0);
+    }
+
+    private int backtrack(char[] a, char[] b, int i) {
+        if(i == a.length) return 0;
+
+        if(a[i] == b[i]) return backtrack(a, b, i + 1);
+
+        int res = Integer.MAX_VALUE;
+        for(int j = i + 1; j < a.length; j++) {
+            //if the character at ith index and jth index is not same
+            //and if the character a jth index of a and b is same..don't swap it..it's at the correct position
+            //swapping that will result in more moves
+            if(a[i] != b[j] || a[j] == b[j]) continue;
+
+            swap(b, i, j);
+            res = Math.min(res, backtrack(a, b, i + 1));
+            swap(b, i, j);
         }
+        res++;
 
-        char[] a = A.toCharArray();
-        char[] b = B.toCharArray();
+        return res;
+    }
 
-        int count = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] != b[i]) {
-                TreeSet<Integer> set = map.get(a[i]);
-                Integer idx = set.ceiling(i);
-                while(b[idx] == a[idx]){
-                    idx = set.ceiling(idx+1);
-                }
-                set.remove(idx);
-
-                set = map.get(b[i]);
-                set.remove(i);
-                set.add(idx);
-                char temp = b[i];
-                b[i] = b[idx];
-                b[idx] = temp;
-                count++;
-            } else{
-                map.get(b[i]).remove(i);
-            }
-        }
-        return count;
+    private void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
