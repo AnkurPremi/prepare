@@ -20,8 +20,7 @@ public class WordBreak2 {
             return cache.get(idx);
         List<String> result = new ArrayList();
         int n = s.length();
-        if(idx == n)
-            return result;
+        if(idx == n) return result;
         TrieNode node = root;
 
         for(int i=idx ; i<n ; i++){

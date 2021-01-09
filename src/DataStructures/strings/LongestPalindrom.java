@@ -5,7 +5,7 @@ public class LongestPalindrom {
 
     public static void main(String[] args) {
         String a = "babadaaxaabcadxab";
-        new LongestPalindrom().longestPalindrome1(a);
+        System.out.println(new LongestPalindrom().longestPalindrome(a));
     }
 
     private static String longestPalindrome(String s) {
@@ -13,7 +13,7 @@ public class LongestPalindrom {
             extendPalindrome(s, i, i);//odd case
             extendPalindrome(s, i, i+1);//even case
         }
-        return s;
+        return s.substring(lo, maxLen);
     }
 
     private static void extendPalindrome(String s, int j, int k) {

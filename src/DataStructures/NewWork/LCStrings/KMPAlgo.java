@@ -8,40 +8,75 @@ public class KMPAlgo {
     }
 
     public int substringSearch(String s, String p) {
-        int[] piTable = prepareTable(p);
-
-        int i=0, j=0;
-        while(i < s.length() && j < p.length()){
-            if(s.charAt(i) == p.charAt(j)){
+        int[] piTable = prefixTable(p);
+        int i = 0, j = 0;
+        while(j < p.length()){
+            if(p.charAt(j) == s.charAt(i)){
                 i++;
                 j++;
             } else{
                 if(j == 0) i++;
-                else
-                    j = j-1 >=0 ? piTable[j-1] : 0;
+                else j = piTable[j - 1];
             }
 
-            if( j == p.length())
-                return i-j;
+            if(j == p.length()){
+                return i - j;
+            }
         }
         return -1;
     }
 
-    public int[] prepareTable(String pattern) {
-        int[] arr = new int[pattern.length()];
+    private int[] prefixTable(String pattern){
+        int[] pitable = new int[pattern.length()];
         int i = 0, j = 1;
-        while (j < pattern.length()) {
+        while(j < pattern.length()){
             if(pattern.charAt(i) == pattern.charAt(j)){
-                arr[j] = i + 1;
+                pitable[j] = i + 1;
                 i++;
                 j++;
             } else{
-                if(i == 0)
-                    j++;
-                else
-                    i = arr[i - 1];
+                if(i == 0) j++;
+                else i = pitable[i-1];
             }
         }
-        return arr;
+        return pitable;
     }
+
+//    public int substringSearch(String s, String p) {
+//        int[] piTable = prepareTable(p);
+//
+//        int i=0, j=0;
+//        while(i < s.length() && j < p.length()){
+//            if(s.charAt(i) == p.charAt(j)){
+//                i++;
+//                j++;
+//            } else{
+//                if(j == 0) i++;
+//                else
+//                    j = j-1 >=0 ? piTable[j-1] : 0;
+//            }
+//
+//            if( j == p.length())
+//                return i-j;
+//        }
+//        return -1;
+//    }
+//
+//    public int[] prepareTable(String pattern) {
+//        int[] arr = new int[pattern.length()];
+//        int i = 0, j = 1;
+//        while (j < pattern.length()) {
+//            if(pattern.charAt(i) == pattern.charAt(j)){
+//                arr[j] = i + 1;
+//                i++;
+//                j++;
+//            } else{
+//                if(i == 0)
+//                    j++;
+//                else
+//                    i = arr[i - 1];
+//            }
+//        }
+//        return arr;
+//    }
 }

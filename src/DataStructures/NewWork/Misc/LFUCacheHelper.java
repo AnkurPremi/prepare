@@ -4,111 +4,146 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LFUCacheHelper {
+    public static void main(String[] args) {
+        LFUCache cache = new LFUCache(2);
+        cache.put(1,1);
+        cache.put(2,2);
+        System.out.println(cache.get(1));
+        cache.put(3,3);
+        System.out.println(cache.get(2));
+        System.out.println(cache.get(3));
+        cache.put(4,4);
+        System.out.println(cache.get(1));
+        System.out.println(cache.get(3));
+        System.out.println(cache.get(4));
+    }
 }
 
 
 class LFUCache {
 
-    Map<Integer, Pair> freqListMap;
-    Map<Integer, DLLNode> keyNodeMap;
-    int capacity = 0;
-    int leastFreq = 0;
+    private int capacity;
+    private Map<Integer, DLLNode> values;
+    private Map<Integer, NodeList> lists;
+    private int minFreq;
+    private int size;
 
     public LFUCache(int capacity) {
         this.capacity = capacity;
-        freqListMap = new HashMap<>();
-        keyNodeMap = new HashMap<>();
+        this.values = new HashMap();
+        this.lists = new HashMap();
     }
 
     public int get(int key) {
-        return 0;
+        if (!values.containsKey(key)) return -1;
+        DLLNode node = values.get(key);
+        int count = node.cnt;
+        node.cnt++;
+
+        NodeList nodeList = lists.get(count);
+        nodeList.remove(node);
+        if (count == minFreq && nodeList.size == 0) {
+            lists.remove(count);
+            minFreq++;
+        }
+
+        count += 1;
+        nodeList = lists.getOrDefault(count, new NodeList());
+        nodeList.add(node);
+
+        lists.put(count, nodeList);
+        values.put(key, node);
+
+        return node.val;
     }
 
     public void put(int key, int value) {
-        DLLNode node;
-        if (!keyNodeMap.containsKey(key)) {
-            node = new DLLNode(key, value, 0);
+        if (capacity == 0) return;
+
+        DLLNode node = values.getOrDefault(key, null);
+        NodeList nodeList = null;
+        int count = 0;
+        if (node == null) {
+            node = new DLLNode(key, value);
+            node.cnt++;
+            count = node.cnt;
+            nodeList = lists.getOrDefault(count, new NodeList());
+            nodeList.add(node);
+            if (size == capacity) {
+                NodeList list = lists.get(minFreq);
+                DLLNode lastNode = list.evictTail();
+                values.remove(lastNode.key);
+                size--;
+            }
+            minFreq = 1;
+            size++;
         } else {
-            node = extractNode(key);
-            node.freq = 0;
-            node.value = value;
-        }
-
-        keyNodeMap.put(key, node);
-
-        if (!freqListMap.containsKey(0)) {
-            freqListMap.put(0, new Pair(node, node));
-        } else {
-            Pair p = freqListMap.get(0);
-            node.next = p.head;
-            p.head.prev = node;
-            p.head = node;
-        }
-
-        if(keyNodeMap.size() >= capacity){
-            evictTailForMinFreq();
-        }
-    }
-
-    private void evictTailForMinFreq(){
-        if(freqListMap.containsKey(leastFreq)){
-            Pair p = freqListMap.get(leastFreq);
-            DLLNode temp = p.tail.prev;
-            if (p.tail.prev != null) {
-                p.tail.prev.next = null;
+            node.val = value;
+            count = node.cnt;
+            node.cnt++;
+            nodeList = lists.get(count);
+            nodeList.remove(node);
+            if (node.cnt == minFreq && nodeList.size == 0) {
+                lists.remove(count);
+                minFreq++;
             }
-            p.tail = temp;
-        }
-    }
-
-    private DLLNode extractNode(int key) {
-        DLLNode node = keyNodeMap.get(key);
-        Pair p = freqListMap.get(node.freq);
-        if (node == p.head) {
-            DLLNode temp = p.head.next;
-            if (p.head.next != null) {
-                p.head.next.prev = null;
-            }
-            p.head = temp;
-        } else if (node == p.tail) {
-            DLLNode temp = p.tail.prev;
-            if (p.tail.prev != null) {
-                p.tail.prev.next = null;
-            }
-            p.tail = temp;
-        } else {
-            if (node.prev != null) {
-                node.prev.next = node.next;
-            }
-            if (node.next != null) {
-                node.next.prev = node.prev;
-            }
+            count = node.cnt;
+            nodeList = lists.getOrDefault(count, new NodeList());
+            nodeList.add(node);
         }
 
-        if (p.head == p.tail && p.tail == null) {
-            freqListMap.remove(node.freq);
-        }
-        return node;
+        lists.put(count, nodeList);
+        values.put(key, node);
+
     }
 
     class DLLNode {
-        int key, value, freq;
-        DLLNode next, prev;
+        int key, val, cnt;
+        DLLNode prev, next;
 
-        DLLNode(int key, int value, int freq) {
+        public DLLNode(int key, int val) {
             this.key = key;
-            this.value = value;
-            this.freq = freq;
+            this.val = val;
+            // cnt = 1;
         }
     }
 
-    class Pair {
+    class NodeList {
         DLLNode head, tail;
+        int size;
 
-        Pair(DLLNode head, DLLNode tail) {
-            this.head = head;
-            this.tail = tail;
+        NodeList() {
+            head = new DLLNode(0, 0);
+            tail = new DLLNode(0, 0);
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        void add(DLLNode node) {
+            head.next.prev = node;
+            node.next = head.next;
+            head.next = node;
+            node.prev = head;
+            size++;
+        }
+
+        void remove(DLLNode node) {
+            node.next.prev = node.prev;
+            node.prev.next = node.next;
+            size--;
+        }
+
+        DLLNode evictTail() {
+            DLLNode removed = tail.prev;
+            remove(removed);
+            return removed;
         }
     }
 }
 
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache obj = new LFUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */

@@ -6,7 +6,7 @@ import java.util.List;
 public class CombinationSum {
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5,6,7,8,9};
-        int target = 100000000;
+        int target = 10;
         System.out.println(new CombinationSum().combinationSum(nums, target));
     }
 

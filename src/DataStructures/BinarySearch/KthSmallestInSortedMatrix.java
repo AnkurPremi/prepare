@@ -8,7 +8,7 @@ public class KthSmallestInSortedMatrix {
                 {12, 13, 15}
         };
 
-        System.out.println(new KthSmallestInSortedMatrix().kthSmallest(grid, 2));
+        System.out.println(new KthSmallestInSortedMatrix().kthSmallest(grid, 3));
     }
 
     public int kthSmallest(int[][] matrix, int k) {

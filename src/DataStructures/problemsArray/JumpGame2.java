@@ -1,8 +1,11 @@
 package DataStructures.problemsArray;
 
+import java.util.Arrays;
+
 public class JumpGame2 {
     public static void main(String[] args) {
         int[] arr = {4,1,1,3,1,1,1};
+        Arrays.binarySearch(arr, 0, 2, 3);
         System.out.println(new JumpGame2().jump(arr));
     }
 
