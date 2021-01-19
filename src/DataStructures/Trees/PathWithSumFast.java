@@ -41,6 +41,7 @@ public class PathWithSumFast {
     public static int getTotalPaths(TreeNode root, int targetSum, int sum, Map<Integer, Integer> hashMap) {
         if (root == null) return 0;
         sum += root.val;
+        
         int totalPaths = hashMap.getOrDefault(sum - targetSum, 0);
         hashMap.put(sum, hashMap.getOrDefault(sum, 0) + 1);
         int res = totalPaths + getTotalPaths(root.left, targetSum, sum, hashMap) +

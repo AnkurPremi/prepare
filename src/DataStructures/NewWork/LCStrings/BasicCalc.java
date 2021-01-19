@@ -9,6 +9,8 @@ public class BasicCalc {
         System.out.println(new BasicCalc().calculate(s));
     }
 
+
+
     public int calculate(String s) {
 
         Deque<Integer> stack = new LinkedList<>();

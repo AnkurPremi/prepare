@@ -10,13 +10,14 @@ public class CommonTasks {
 //      ~a  = 1100 0011
 
     public static void main(String[] args) {
-        if(getBit(127, 1)){
-            System.out.println("4th digit is 1");
-        }else{
-            System.out.println("4th digit is 0");
-        }
+//        if(getBit(127, 1)){
+//            System.out.println("4th digit is 1");
+//        }else{
+//            System.out.println("4th digit is 0");
+//        }
 //        System.out.println("-----------------------------------");
 //        System.out.println(Integer.toBinaryString(setBit(127, 4)));
+        System.out.println(Integer.toBinaryString(127));
         System.out.println(Integer.toBinaryString(clearBit(127, 4)));
     }
 

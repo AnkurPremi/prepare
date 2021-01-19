@@ -6,11 +6,49 @@ import java.util.Stack;
 
 public class BasicCalc2 {
     public static void main(String[] args) {
-        String s = " 1-2+1-3+1";
+        String s = " 3 +2* 2";
         System.out.println(new BasicCalc2().calculate(s));
     }
 
     public int calculate(String s) {
+        int len = s.length();
+        int[] nums = new int[len];
+        int idx = 0;
+        char prevOperator = '+';
+        int num = 0;
+        for(int i=0 ; i<len ; i++){
+            char c = s.charAt(i);
+
+            if(c == ' ' && i < len - 1){
+                continue;
+            }
+
+            if(c >= '0' && c <= '9'){
+                num = num * 10 + c - '0';
+                if(i < len - 1){
+                    continue;
+                }
+            }
+
+            switch(prevOperator){
+                case '+' : nums[idx++] = num; break;
+                case '-' : nums[idx++] = -num; break;
+                case '*' : nums[idx - 1] *= num; break;
+                case '/' : nums[idx - 1] /= num; break;
+            }
+            prevOperator = c;
+            num = 0;
+        }
+
+        int ans = 0;
+        for(int i=0 ; i<=idx ; i++){
+            ans += nums[i];
+        }
+
+        return ans;
+    }
+
+    public int calculate1(String s) {
         int ans = 0;
         int r = 0;
         Deque<Integer> stack = new LinkedList<>();

@@ -1,5 +1,7 @@
 package DataStructures.problemsArray;
 
+import java.util.LinkedList;
+
 public class LargestRectangleinHistogram {
     public static void main(String[] args) {
         int[] arr = {2, 1, 5, 6, 2, 3};
@@ -58,6 +60,7 @@ public class LargestRectangleinHistogram {
     }
 
     public static int largestRectangleArea1(int[] height) {
+
         if (height == null || height.length == 0) {
             return 0;
         }
