@@ -1,8 +1,6 @@
 package DataStructures.NewWork.DP;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class JobSchedulingMaxProfit {
@@ -10,12 +8,11 @@ public class JobSchedulingMaxProfit {
         int[] st = {1, 2, 3, 4, 6};
         int[] et = {3, 5, 10, 6, 9};
         int[] p = {20, 20, 100, 70, 60};
-        System.out.println(new JobSchedulingMaxProfit().addStrings("10", "899"));
+//        System.out.println(new JobSchedulingMaxProfit().addStrings("10", "899"));
         System.out.println(new JobSchedulingMaxProfit().jobScheduling(st, et, p));
     }
 
 
-    //Very similar to Meeting Rooms 2 and Course Schedule 3
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
         int n = startTime.length;
         Job[] jobs = new Job[n];
@@ -23,34 +20,85 @@ public class JobSchedulingMaxProfit {
             jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
 
-        Arrays.sort(jobs, (a, b) ->{
-            return a.end - b.end;
+        Arrays.sort(jobs, (a, b) -> {
+            return a.s - b.s;
         });
 
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-        map.put(0, 0); // just to handle empty data issue
-        for(Job job : jobs){
-            // check if we can add this job
-            // Step 1 - check if there exist a job that we previously did with its end time less than current job start time
-            // Step 2 - If there exist a job, then check if doing current job along with the previous job will give more profit   than doing last job
-            //Step 3 - if yes, add the current job to the map..
-            //since the data is sorted from last time .. we just checked if we should do current job or not for maximizing the profit.
-            int curVal = map.floorEntry(job.start).getValue() + job.profit;
-            if(curVal > map.lastEntry().getValue()){
-                map.put(job.end, curVal);
+        return helper(0, jobs, new HashMap());
+
+    }
+
+    private int helper(int cur, Job[] jobs, Map<Integer, Integer> cache){
+        if(cur == jobs.length) return 0;
+        if(cache.containsKey(cur)) return cache.get(cur);
+
+        int nextJob = findNext(cur, jobs);
+
+        int including = jobs[cur].p + (nextJob == -1 ? 0 : helper(nextJob, jobs, cache));
+        int excluding = helper(cur + 1, jobs, cache);
+
+        int max = Math.max(including, excluding);
+        cache.put(cur, max);
+        return max;
+
+    }
+
+    private int findNext(int cur, Job[] jobs){
+
+        for(int next = cur + 1 ; next < jobs.length ; next++){
+            if(jobs[next].s >= jobs[cur].e){
+                return next;
             }
         }
-        return map.lastEntry().getValue();
+        return -1;
     }
 
     class Job{
-        int start, end, profit;
-        public Job(int start, int end, int profit){
-            this.start = start;
-            this.end = end;
-            this.profit = profit;
+        int s, e, p;
+        Job(int s, int e, int p){
+            this.s = s;
+            this.e = e;
+            this.p = p;
         }
     }
+
+
+    //Very similar to Meeting Rooms 2 and Course Schedule 3
+//    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+//        int n = startTime.length;
+//        Job[] jobs = new Job[n];
+//        for(int i=0 ; i<n ; i++){
+//            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
+//        }
+//
+//        Arrays.sort(jobs, (a, b) ->{
+//            return a.end - b.end;
+//        });
+//
+//        TreeMap<Integer, Integer> map = new TreeMap<>();
+//        map.put(0, 0); // just to handle empty data issue
+//        for(Job job : jobs){
+//            // check if we can add this job
+//            // Step 1 - check if there exist a job that we previously did with its end time less than current job start time
+//            // Step 2 - If there exist a job, then check if doing current job along with the previous job will give more profit   than doing last job
+//            //Step 3 - if yes, add the current job to the map..
+//            //since the data is sorted from last time .. we just checked if we should do current job or not for maximizing the profit.
+//            int curVal = map.floorEntry(job.start).getValue() + job.profit;
+//            if(curVal > map.lastEntry().getValue()){
+//                map.put(job.end, curVal);
+//            }
+//        }
+//        return map.lastEntry().getValue();
+//    }
+//
+//    class Job{
+//        int start, end, profit;
+//        public Job(int start, int end, int profit){
+//            this.start = start;
+//            this.end = end;
+//            this.profit = profit;
+//        }
+//    }
 
 //    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
 //        int[][] combine = new int[startTime.length][3];
@@ -76,39 +124,4 @@ public class JobSchedulingMaxProfit {
 //        }
 //        return ans;
 //    }
-
-    public String addStrings(String num1, String num2) {
-        if(num1.length() < num2.length())
-            return addStrings(num2, num1);
-
-        int n = num1.length(), m = num2.length();
-
-        int[] arr = new int[n+1];
-
-        int writer = n;
-        int num = 0;
-        int car = 0;
-        while(n-1 >= 0 || m-1 >= 0){
-            if(n-1 >= 0){
-                num += num1.charAt(n-1) - '0';
-                n--;
-            }
-
-            if(m-1 >= 0){
-                num += num2.charAt(m-1) - '0';
-                m--;
-            }
-
-            num += car;
-            arr[writer--] = num%10;
-            car = num/10;
-            num=0;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for(int i=writer+1 ; i<num1.length()+1 ; i++){
-            sb.append(arr[i]);
-        }
-        return sb.toString();
-    }
 }

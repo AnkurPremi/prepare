@@ -11,6 +11,40 @@ public class FindAnagrams {
     }
 
     public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list = new ArrayList();
+        int m = s.length(), n = p.length();
+        if(m * n == 0) return list;
+
+        int[] map = new int[26];
+        for(int i = 0 ; i < p.length() ; i++){
+            map[p.charAt(i) - 'a']++;
+        }
+
+        int start = 0, end = 0;
+        int count = p.length();
+
+        while(end < s.length()){
+            if(map[s.charAt(end) - 'a'] > 0){
+                map[s.charAt(end) - 'a']--;
+                end++;
+            } else if(start == end){
+                start++;
+                end++;
+            } else{
+                map[s.charAt(start) - 'a']++;
+                start++;
+            }
+
+            if(end - start == count){
+                list.add(start);
+                map[s.charAt(start) - 'a']++;
+                start++;
+            }
+        }
+
+        return list;
+    }
+    public List<Integer> findAnagrams1(String s, String p) {
         List<Integer> list = new ArrayList<>();
         if (s == null || s.length() == 0 || p == null || p.length() == 0) return list;
 
