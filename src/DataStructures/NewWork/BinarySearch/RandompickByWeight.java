@@ -1,5 +1,7 @@
 package DataStructures.NewWork.BinarySearch;
 
+import java.util.Random;
+
 public class RandompickByWeight {
     public static void main(String[] args) {
         Solution solution = new Solution(new int[]{2, 3, 5, 1, 8});
@@ -20,6 +22,7 @@ public class RandompickByWeight {
 class Solution {
     private int[] prefixSums;
     private int totalSum;
+    Random random;
 
     public Solution(int[] w) {
         this.prefixSums = new int[w.length];
@@ -30,10 +33,12 @@ class Solution {
             this.prefixSums[i] = prefixSum;
         }
         this.totalSum = prefixSum;
+        random = new Random();
     }
 
     public int pickIndex() {
-        double target = this.totalSum * Math.random();
+//        double target = this.totalSum * Math.random();
+        double target = this.totalSum * random.nextDouble();
 
         // run a binary search to find the target zone
         int low = 0, high = this.prefixSums.length;

@@ -6,7 +6,7 @@ public class LongestValidParenthesis {
     public static void main(String[] args) {
         String input = "(()(()())))";
 //        input = "()()";
-        System.out.println(longestValidParentheses1(input));
+        System.out.println(longestValidParentheses2(input));
     }
 
     public static int longestValidParentheses(String s) {
@@ -50,6 +50,27 @@ public class LongestValidParenthesis {
             }
             if (V[i] > max) max = V[i];
         }
+        return max;
+    }
+
+    public  static int longestValidParentheses2(String s) {
+        int n = s.length();
+        boolean[] valid = new boolean[n];
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 0 ; i < n ; i++){
+            if(s.charAt(i) == '(') stack.push(i);
+            else if(!stack.isEmpty()){
+                valid[stack.pop()] = valid[i] = true;
+            }
+        }
+        int max = 0;
+        int len = 0;
+
+        for (boolean v : valid) {
+            int test = len = v ? len + 1 : 0;
+            max = Math.max(max, len = v ? len + 1 : 0);
+        }
+
         return max;
     }
 }

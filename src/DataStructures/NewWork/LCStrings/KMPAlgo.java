@@ -3,8 +3,20 @@ package DataStructures.NewWork.LCStrings;
 public class KMPAlgo {
     public static void main(String[] args) {
         String s = "abxabcabyabc";
-        String p = "abcaby";
-        System.out.println(new KMPAlgo().substringSearch(s, p));
+        String p = "leetcodeleet";
+        new KMPAlgo().test();
+//        System.out.println(new KMPAlgo().substringSearch(s, p));
+    }
+
+    private void test(){
+        int[] dirX = {-1, 0, 1};
+        int[] dirY = {-1, 0, 1};
+        for(int dx : dirX){
+            for(int y : dirY){
+                System.out.println("x: " + dx +"  y: "+y);
+
+            }
+        }
     }
 
     public int substringSearch(String s, String p) {

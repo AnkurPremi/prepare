@@ -5,7 +5,37 @@ import java.util.Arrays;
 public class ThreeSumClosest {
     public static void main(String[] args) {
         int[] nums = {-1, 2, 1, -4};
-        new ThreeSumClosest().threeSumClosest(nums, 1);
+        System.out.println(new ThreeSumClosest().threeSumClosest1(nums, 1));
+    }
+
+    public int threeSumClosest1(int[] nums, int target) {
+        Arrays.sort(nums);
+        int closest = Integer.MAX_VALUE;
+
+        for(int i = 0 ;i  < nums.length ; i++){
+            if(i == 0 || nums[i] != nums[i-1]){
+
+                int start = i + 1, end = nums.length - 1;
+
+                while(start < end){
+                    int sumHere = nums[start] + nums[end] + nums[i];
+                    if(Math.abs(target - sumHere) < Math.abs(sumHere - closest)){
+                        closest = sumHere;
+                    }
+
+                    if(sumHere < target){
+                        start++;
+                    } else if(sumHere > target){
+                        end--;
+                    } else{
+                        return target;
+                    }
+
+                    while(start + 1 < end && nums[start] == nums[start + 1]) start++;
+                }
+            }
+        }
+        return closest;
     }
 
     public int threeSumClosest(int[] nums, int k) {

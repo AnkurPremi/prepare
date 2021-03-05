@@ -1,5 +1,6 @@
 package DataStructures.NewWork.Misc;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -2,12 +2,12 @@ package DataStructures.problemsArray;
 
 public class FirstandLastPositionofElementInSorted {
     public static void main(String[] args) {
-        int[] nums = {1,4};
-        int target = 4;
+        int[] nums = {5,7,7,8,8,10};
+        int target = 8;
         new FirstandLastPositionofElementInSorted().searchRange(nums, target);
     }
 
-    public int[] searchRange(int[] nums, int target) {
+    public int[] searchRange1(int[] nums, int target) {
         if (nums.length == 0) return new int[0];
         if (nums.length == 1 && nums[0] == target) {
             return new int[]{0, 0};
@@ -39,5 +39,47 @@ public class FirstandLastPositionofElementInSorted {
             }
         }
         return result;
+    }
+
+
+    public int[] searchRange(int[] nums, int target) {
+        int left = searchLeft(nums, target);
+        if(left == -1) return new int[]{-1, -1};
+        int right = searchRight(nums, target);
+        return new int[]{left, right};
+    }
+
+    private int searchLeft(int[] nums, int target){
+        int ans = -1;
+        int start = 0, end = nums.length - 1;
+        while(start <= end){
+            int mid = start + (end - start) / 2;
+            if(target == nums[mid]) ans = mid;
+
+            if(target <= nums[mid]){
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+
+    private int searchRight(int[] nums, int target){
+        int ans = -1;
+        int start = 0, end = nums.length - 1;
+        while(start <= end){
+            int mid = start + (end- start) / 2;
+            if(target == nums[mid]) ans = mid;
+
+            if(target >= nums[mid]){
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return ans;
     }
 }

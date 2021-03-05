@@ -6,6 +6,7 @@ import DataStructures.strings.EditDistance;
 public class SpiralMatrix2 {
     public static void main(String[] args) {
         int num = 4;
+        System.out.println(Integer.MAX_VALUE);
         EditDistance.printMatrix(new SpiralMatrix2().generateMatrix(num));
     }
 
@@ -49,6 +50,7 @@ public class SpiralMatrix2 {
                 colStart++;
             }
         }
+
         return matrix;
     }
 }

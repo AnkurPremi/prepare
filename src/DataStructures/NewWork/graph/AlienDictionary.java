@@ -2,6 +2,7 @@ package DataStructures.NewWork.graph;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  There is a new alien language that uses the English alphabet. However, the order among letters are unknown to you.
@@ -20,6 +21,7 @@ public class AlienDictionary {
 
 //Runtime - O(C) ... all characters in the words
         public String alienOrder(String[] words) {
+
             Set<Integer>[] graph = new Set[26];
 
             for (String word : words) {
