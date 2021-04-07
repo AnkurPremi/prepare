@@ -5,9 +5,38 @@ import java.util.List;
 
 public class FindAnagrams {
     public static void main(String[] args) {
-        String s = "abcdeabcdeabc";
+        String s = "cbaebabacd";
         String  p = "abc";
-        new FindAnagrams().findAnagrams(s, p);
+        new FindAnagrams().findAnagrams2(s, p);
+    }
+
+    public List<Integer> findAnagrams2(String s, String p) {
+        List<Integer> ans = new ArrayList();
+        int start = 0, end = 0;
+        int[] counts = new int[26];
+        for(int i = 0 ; i < p.length() ; i++){
+            counts[p.charAt(i) - 'a']++;
+        }
+
+        while(end < s.length()){
+            char c = s.charAt(end);
+            if(counts[c - 'a'] > 0){
+                end++;
+                counts[c - 'a']--;
+            } else if(start == end){
+                start++;
+                end++;
+            } else {
+                counts[s.charAt(start) - 'a']++;
+                start++;
+            }
+
+            if(end - start == p.length()){
+                ans.add(start);
+            }
+        }
+
+        return ans;
     }
 
     public List<Integer> findAnagrams(String s, String p) {

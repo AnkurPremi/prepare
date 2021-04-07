@@ -39,4 +39,38 @@ public class LetterCasePermuatations {
             charArr[idx] = c;
         }
     }
+
+
+//    List<String> result;
+//
+//    public List<String> letterCasePermutation(String S) {
+//        result = new ArrayList();
+//        helper(S.toCharArray(), 0, new boolean[S.length()]);
+//        return result;
+//    }
+//
+//    private void helper(char[] arr, int idx, boolean[] used) {
+//        if (idx == arr.length) {
+//            result.add(new String(arr));
+//            return;
+//        }
+//
+//        for (int i = idx; i < arr.length; i++) {
+//            if (Character.isDigit(arr[i])) {
+//                helper(arr, i + 1, used);
+//            } else {
+//                if (used[i]) continue;
+//                used[i] = true;
+//                char c = arr[i];
+//                char c1 = Character.toLowerCase(c);
+//                char c2 = Character.toUpperCase(c);
+//                arr[i] = c1;
+//                helper(arr, i + 1, used);
+//                arr[i] = c2;
+//                helper(arr, i + 1, used);
+//                used[i] = false;
+//                arr[i] = c;
+//            }
+//        }
+//    }
 }

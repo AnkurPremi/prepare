@@ -9,8 +9,54 @@ public class BasicCalculator3 {
         System.out.println(new BasicCalculator3().calculate(s));
     }
 
-    int i = 0;
+    int i;
+
     public int calculate(String s) {
+        int num = 0, prev = 0, ans = 0;
+        int n = s.length();
+        char prevOp = '+';
+
+        while(i < n){
+            char c = s.charAt(i);
+
+            if(Character.isDigit(c)){
+                num = num * 10 + c - '0';
+            }
+
+            if(c == '+' || c == '-' || c == '*' || c == '/' || i == n - 1 || c == ')'){
+                switch(prevOp){
+                    case '+' : prev += num; break;
+                    case '-' : prev -= num; break;
+                    case '*' : prev *= num; break;
+                    case '/' : prev /= num; break;
+                }
+
+                if(c == '+' || c == '-' || i == n - 1 || c == ')'){
+                    ans += prev;
+                    prev = 0;
+                }
+
+                if(c == ')') {
+                    i++;
+                    break;
+                }
+
+                prevOp = c;
+                num = 0;
+            }
+
+            if(c == '('){
+                i++;
+                num = calculate(s);
+            }
+
+            i++;
+        }
+        return ans;
+    }
+
+//    int i = 0;
+    public int calculate1(String s) {
         Deque<Integer> numStack = new LinkedList();
         Deque<Character> charStack = new LinkedList();
         int num = 0;

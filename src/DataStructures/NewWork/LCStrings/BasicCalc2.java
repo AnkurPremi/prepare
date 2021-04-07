@@ -6,11 +6,44 @@ import java.util.Stack;
 
 public class BasicCalc2 {
     public static void main(String[] args) {
-        String s = " 3 +2* 2";
+        String s = " 3 + 2 * 2 + 6 / 2";
         System.out.println(new BasicCalc2().calculate(s));
     }
 
     public int calculate(String s) {
+        int num = 0, ans = 0, prev = 0;
+        int n = s.length();
+        char prevOp = '+';
+
+        for(int i = 0 ; i < n ; i++){
+            char c = s.charAt(i);
+
+            if(Character.isDigit(c)){
+                num = num * 10 + c - '0';
+            }
+
+            if(c == '+' || c == '-' || c =='*' || c == '/' || i == n - 1){
+                switch(prevOp){
+                    case '+' : prev += num; break;
+                    case '-' : prev -= num; break;
+                    case '*' : prev *= num; break;
+                    case '/' : prev /= num; break;
+                }
+
+                if(c == '+' || c == '-' || i == n - 1){
+                    ans += prev;
+                    prev = 0;
+                }
+
+                prevOp = c;
+                num = 0;
+            }
+        }
+
+        return ans;
+    }
+
+    public int calculate2(String s) {
         int len = s.length();
         int[] nums = new int[len];
         int idx = 0;

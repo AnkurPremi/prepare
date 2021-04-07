@@ -1,5 +1,6 @@
 package DataStructures.HashTable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +30,21 @@ public class ValidSudoku {
             for (int j = 0; j < 9; j++) {
                 if (board[i][j] != '.') {
                     idx = 1 << (board[i][j] - '0');
+                    System.out.println(Integer.toBinaryString(idx));
+                    System.out.println(Arrays.toString(hset));
+                    System.out.println(Arrays.toString(vset));
+                    System.out.println(Arrays.toString(bckt));
                     if ((hset[i] & idx) > 0 ||
                             (vset[j] & idx) > 0 ||
                             (bckt[(i / 3) * 3 + j / 3] & idx) > 0) return false;
                     hset[i] |= idx;
                     vset[j] |= idx;
                     bckt[(i / 3) * 3 + j / 3] |= idx;
+
+                    System.out.println(Integer.toBinaryString(idx));
+                    System.out.println(Arrays.toString(hset));
+                    System.out.println(Arrays.toString(vset));
+                    System.out.println(Arrays.toString(bckt));
                 }
             }
         }

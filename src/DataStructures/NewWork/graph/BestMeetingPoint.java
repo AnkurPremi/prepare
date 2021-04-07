@@ -5,10 +5,12 @@ import java.util.List;
 
 public class BestMeetingPoint {
     public static void main(String[] args) {
+        int ans = 3 ^ 4 ^ 7;
+        System.out.println(ans);
         int[][] grid = {{1,0,0,0,1},
                 {0,0,0,0,0},
                 {0,0,1,0,0}};
-        System.out.println(new BestMeetingPoint().minTotalDistance(grid));
+//        System.out.println(new BestMeetingPoint().minTotalDistance(grid));
     }
 
     public int minTotalDistance(int[][] grid) {

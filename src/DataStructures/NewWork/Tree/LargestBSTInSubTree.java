@@ -18,6 +18,37 @@ public class LargestBSTInSubTree {
     }
 
     public int maxSumBST(TreeNode root) {
+        int[] max = {Integer.MIN_VALUE};
+        findMaxSum(root, max);
+        return max[0];
+    }
+
+    private int[] findMaxSum(TreeNode root, int[] max){
+        if(root == null) return new int[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE, 0};
+
+        int[] left = findMaxSum(root.left, max);
+        int[] right = findMaxSum(root.right, max);
+
+        if(left[0] == 0 && right[0] == 0){
+
+            //greater than biggest in left  &  smaller than smallest in right
+            if(root.val > left[2] && root.val < right[1]){
+                left[1] = Math.min(root.val, left[1]);
+                left[2] = Math.max(root.val, right[2]);
+                int sum = root.val + left[3] + right[3];
+                left[3] = sum;
+                max[0] = Math.max(max[0], sum);
+            } else {
+                left[0] = 1;
+            }
+        } else {
+            left[0] = 1;
+        }
+
+        return left;
+    }
+
+    public int maxSumBST1(TreeNode root) {
         int[] max = {0};
         postorder(root, max);
         return max[0];

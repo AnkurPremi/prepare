@@ -16,7 +16,6 @@ public class InterleavingStrings {
 
     public boolean isInterleave(String s1, String s2, String s3, int idx1, int idx2, int idx3, Boolean[][] dp) {
 
-        System.out.println("idx1-"+idx1 +"    idx2-"+idx2);
         if(dp[idx1][idx2] != null) return dp[idx1][idx2];
 
         if (idx3 == s3.length() && idx1 == s1.length() && idx2 == s2.length()) return true;
